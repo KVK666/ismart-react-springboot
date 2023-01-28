@@ -70,7 +70,9 @@ function MovieListComponent(){
 
     return (
         <div className='Container'>
-            <h1>Movies</h1>
+            <h1>Movies            {isAdmin && <div style= {{float:"right"}}className="btn btn-success" onClick={addNewMovie}> Add New Movie</div>}
+</h1>
+
             {message && <div className="alert alert-warning">{message}</div>}
             <div>
             
@@ -110,7 +112,6 @@ function MovieListComponent(){
                     </tbody>
                 </table>
             </div>
-            {isAdmin && <div className="btn btn-success m-5" onClick={addNewMovie}> Add New Movie</div>}
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { deleteReviewByIdApi, postReviewApi, retrieveAllReviewsOfMovieApi, retrieveMovieByIdApi  } from '../api/MovieReviewApiService';
+import { deleteReviewByIdApi, postReviewApi, retrieveAllReviewsOfMovieApi, retrieveMovieByIdApi } from '../api/MovieReviewApiService';
 import { useEffect } from 'react';
 import "./MovieReviewApp.css"
 import ReviewsUnderMovieComponent from './ReviewsUnderMovieComponent';
@@ -57,17 +57,17 @@ export default function ReviewComponent() {
     function refreshReviews() {
         retrieveAllReviewsOfMovieApi(id)
             .then(response => {
-                
+
                 setReviews(response.data)
                 refreshReviews()
-                
+
 
             })
             .catch(error => console.log(error))
     }
-   
 
-    
+
+
 
     const movie = {
         id: id,
@@ -77,9 +77,9 @@ export default function ReviewComponent() {
         director: director,
         language: language,
         overAllRating: overAllRating,
-        poster:poster
+        poster: poster
     }
-    
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -89,80 +89,95 @@ export default function ReviewComponent() {
             review: userReview
         }
         postReviewApi(id, username, review)
-            .then(response => {console.log(response)
-            refreshReviews()})
+            .then(response => {
+                console.log(response)
+                refreshReviews()
+            })
             .catch(error => console.log(error));
     }
 
-    
+
 
 
     return (
         <div >
-            <div style={{ margin: "40px", textAlign: "left" }}>
-                <div style={{ marginBottom: "5px" }}>
-                    <h1 style={{ display: "inline-block" }}><strong>{movie.title}</strong></h1>
-                    <h5 style={{ display: "inline-block", margin: "10px" }}>{movie.year}</h5>
-                    <img src={movie.poster} alt={movie.title} style={{ position: "absolute", right: "0" }} />
-                </div>
-                <div style={{ lineHeight: "0.5" }}>
-                    <p>Director: {movie.director}</p>
-                    <p>Language: {movie.language}</p>
-                    <p>Rating: {movie.overAllRating}</p>
-                    <p><strong>Description</strong></p>
-                    <p style={{whiteSpace: 'pre-line', wordBreak: 'break-word', lineHeight: '1.5',width:"40%"}}>{movie.description}</p>
-                    
-                </div>
-                
-            </div>
-            
-
-            <div style={{margin: "50px", textAlign:"left"}}>
-                <form onSubmit={handleSubmit}>
-                    <div >
-                        <p><strong>Write your review here</strong></p>
-                        <textarea
-                            name='write review'
-                            placeholder="write your review here"
-                            value={userReview}
-                            onChange={event => setUserReview(event.target.value)}
-                        />
+            <div className='movie-container'>
+                <div className="movie-card">
+                    <div>
+                        <h1><strong>{movie.title}</strong></h1>
+                        <h5>{movie.year}</h5>
+                        <img src={movie.poster} alt={movie.title} />
                     </div>
                     <div>
-                        <select value={movieRating} onChange={event => setMovieRating(event.target.value)}>
-                            <option value="">Select a rating</option>
-                            <option value="1">1 star</option>
-                            <option value="2">2 stars</option>
-                            <option value="3">3 stars</option>
-                            <option value="4">4 stars</option>
-                            <option value="5">5 stars</option>
-                        </select>
+                        <p>Director: {movie.director}</p>
+                        <p>Language: {movie.language}</p>
+                        <p>Rating: {movie.overAllRating}</p>
+                        <br></br>
+                        <br></br>
+                        <span><strong>Description</strong></span>
+                        <p>{movie.description}</p>
+
+
                     </div>
-                    <button className="btn btn-success m-3" type="submit">Submit Review</button>
-                </form>
+                </div>
+
+
+
+                <div class="container">
+                    <form onSubmit={handleSubmit}>
+                        <div class="form-group">
+                            <label for="reviewText">Write your review here:</label>
+                            <textarea
+                                class="form-control"
+                                id="reviewText"
+                                placeholder="Write your review here"
+                                value={userReview}
+                                onChange={event => setUserReview(event.target.value)}
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="ratingSelect">Select a rating:</label>
+                            <select
+                                class="form-control"
+                                id="ratingSelect"
+                                value={movieRating}
+                                onChange={event => setMovieRating(event.target.value)}
+                            >
+                                <option value="">Select a rating</option>
+                                <option value="1">1 star</option>
+                                <option value="2">2 stars</option>
+                                <option value="3">3 stars</option>
+                                <option value="4">4 stars</option>
+                                <option value="5">5 stars</option>
+                            </select>
+                        </div>
+                        <button className="btn btn-primary m-3" type="submit">Submit Review</button>
+                    </form>
+                </div>
             </div>
+
             {/* <ReviewsUnderMovieComponent/> */}
 
-            <div style={{margin: "25px",textAlign:"left"}}>
-            <h4 style={{textAlign:"center"}}>Reviews</h4>
+            <div style={{ margin: "25px", textAlign: "left" }}>
+                <h4 style={{ textAlign: "center" }}>Reviews</h4>
 
-            <div style={{textAlign:"center"}}>
-            {reviews.length===0 && <p>Be the first one to review this movie</p>}
+                <div style={{ textAlign: "center" }}>
+                    {reviews.length === 0 && <p>Be the first one to review this movie</p>}
+                </div>
+
+                <ol >
+                    {reviews.map(review => (
+                        <li key={review.id} className="card mb-3">
+                            <p><img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt="user" width="50px" height="50px" />{review.userName}</p>
+                            <p>Overall Rating: {review.rating} stars</p>
+                            <p>Review: {review.review}</p>
+                        </li>
+                    ))}
+                </ol>
             </div>
 
-            <ol >
-            {reviews.map(review =>(
-                <li key={review.id} className="card mb-3">
-                    <p><img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt="user" width="50px" height="50px"/>{review.userName}</p>
-                    <p>Overall Rating: {review.rating} stars</p>
-                    <p>Review: {review.review}</p>
-                </li>
-            ))}
-            </ol>
-        </div>
 
 
-            
 
         </div>
 

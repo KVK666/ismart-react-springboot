@@ -14,6 +14,7 @@ export default function MovieComponent() {
     const [director, setDirector] = useState('')
     const [language, setLanguage] = useState('')
     const [overAllRating, setRating] = useState('')
+    const [poster,setPoster]=useState('')
 
     const navigate = useNavigate()
 
@@ -31,6 +32,7 @@ export default function MovieComponent() {
                     setDirector(response.data.director)
                     setLanguage(response.data.language)
                     setRating(response.data.overAllRating)
+                    setPoster(response.data.poster)
                 })
                 .catch(error => console.log(error))
         }
@@ -46,7 +48,8 @@ export default function MovieComponent() {
             description: values.description,
             director: values.director,
             language: values.language,
-            overAllRating: values.overAllRating
+            overAllRating: values.overAllRating,
+            poster:values.poster
 
 
         }
@@ -100,7 +103,7 @@ export default function MovieComponent() {
         <div className="container">
             <h1>Enter Movie Details</h1>
             <div>
-                <Formik initialValues={{ title, year, description, director, language, overAllRating }}
+                <Formik initialValues={{ title, year, description, director, language, overAllRating,poster}}
                     enableReinitialize={true}
                     onSubmit={onSubmit}
                     validate={validate}
@@ -169,6 +172,10 @@ export default function MovieComponent() {
                                 <fieldset className="form-group">
                                     <label>Rating</label>
                                     <Field className="form-control" name="overAllRating" />
+                                </fieldset>
+                                <fieldset className="form-group">
+                                    <label>Poster</label>
+                                    <Field className="form-control" name="poster" />
                                 </fieldset>
 
                                 <div>

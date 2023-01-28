@@ -205,4 +205,53 @@ html {
   100% { transform: rotate(360deg); }
 }
 
+
+.movie-card {
+  margin: 40px;
+  text-align: left;
+  position: relative;
+}
+
+.movie-card img {
+  width: 150px;
+  height: 200px;
+  float: left;
+  margin-right: 20px;
+}
+
+.movie-card h1 {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.movie-card h5 {
+  display: inline-block;
+  margin: 10px;
+}
+
+.movie-card p {
+  line-height: 1.5;
+  word-break: break-word;
+  width: 40%;
+}
+
+.movie-card p strong {
+  font-weight: bold;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+
+
+
+
   
