@@ -3,7 +3,11 @@ import { useParams } from 'react-router-dom';
 import { deleteReviewByIdApi, postReviewApi, retrieveAllReviewsOfMovieApi, retrieveMovieByIdApi } from '../api/MovieReviewApiService';
 import { useEffect } from 'react';
 import "./MovieReviewApp.css"
-import ReviewsUnderMovieComponent from './ReviewsUnderMovieComponent';
+
+import StarRatingComponent from 'react-star-rating-component';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
 
 export default function ReviewComponent() {
 
@@ -158,7 +162,7 @@ export default function ReviewComponent() {
 
             {/* <ReviewsUnderMovieComponent/> */}
 
-            <div style={{ margin: "25px", textAlign: "left" }}>
+            {/* <div style={{ margin: "25px", textAlign: "left" }}>
                 <h4 style={{ textAlign: "center" }}>Reviews</h4>
 
                 <div style={{ textAlign: "center" }}>
@@ -174,7 +178,59 @@ export default function ReviewComponent() {
                         </li>
                     ))}
                 </ol>
+            </div> */}
+
+            <div style={{ margin: "25px", textAlign: "left" }}>
+                <h4 style={{ textAlign: "center" }}>Reviews</h4>
+
+                <div style={{ textAlign: "center" }}>
+                    {reviews.length === 0 && <p>Be the first one to review this movie</p>}
+                </div>
+
+                {/* <ol>
+                    {reviews.map(review => (
+                        <li key={review.id} className="card mb-3">
+                            <div className="card-header">
+                                <img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt="user" width="50px" height="50px" className="review-user-img" />
+                                <h5 className="review-username">{review.userName}</h5>
+                            </div>
+                            <div className="card-body">
+                                <p className="review-rating"><StarRatingComponent
+                                    name="rating"
+                                    value={review.rating}
+                                    starCount={5}
+                                    editing={false}
+                                /></p>
+                                <p className="review-text">Review: {review.review}</p>
+                            </div>
+                        </li>
+                    ))}
+                </ol> */}
+
+                <div class="review-grid">
+                    {reviews.map(review => (
+                        <div class="review-card" key={review.id}>
+                            <div class="review-header">
+                            <FontAwesomeIcon icon={faUser} style={{width: '30px', height: '30px', borderRadius:"50%"}} size="2x" color="#000" />
+                                <h5 class="review-username">{review.userName}</h5>
+                            </div>
+                            <div class="review-body">
+                                <p class="review-rating">
+                                    <StarRatingComponent
+                                        name="rating"
+                                        value={review.rating}
+                                        starCount={5}
+                                        editing={false}
+                                    />
+                                </p>
+                                <p class="review-text">Review: {review.review}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
             </div>
+
 
 
 
