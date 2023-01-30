@@ -100,6 +100,10 @@ export default function ReviewComponent() {
             .catch(error => console.log(error));
     }
 
+    const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0);
+    const averageRating = Math.round(totalRating / reviews.length);
+
+
 
 
 
@@ -115,9 +119,14 @@ export default function ReviewComponent() {
                     <div>
                         <p>Director: {movie.director}</p>
                         <p>Language: {movie.language}</p>
-                        <p>Rating: {movie.overAllRating}</p>
-                        <br></br>
-                        <br></br>
+                        <p>Rating: <StarRatingComponent
+                                        name="rating"
+                                        value={averageRating}
+                                        starCount={5}
+                                        editing={false}
+                                    /></p>
+                        
+                        
                         <span><strong>Description</strong></span>
                         <p>{movie.description}</p>
 
@@ -211,18 +220,18 @@ export default function ReviewComponent() {
                     {reviews.map(review => (
                         <div class="review-card" key={review.id}>
                             <div class="review-header">
-                            <FontAwesomeIcon icon={faUser} style={{width: '30px', height: '30px', borderRadius:"50%"}} size="2x" color="#000" />
+                                <FontAwesomeIcon icon={faUser} style={{ width: '30px', height: '30px', borderRadius: "50%" }} size="2x" color="#000" />
                                 <h5 class="review-username">{review.userName}</h5>
                             </div>
                             <div class="review-body">
-                                <p class="review-rating">
+                                <span class="review-rating">
                                     <StarRatingComponent
                                         name="rating"
                                         value={review.rating}
                                         starCount={5}
                                         editing={false}
                                     />
-                                </p>
+                                </span>
                                 <p class="review-text">Review: {review.review}</p>
                             </div>
                         </div>
