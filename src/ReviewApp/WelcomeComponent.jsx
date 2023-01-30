@@ -19,7 +19,7 @@ function WelcomeComponent(){
 
     return (
         <div className="Welcome">
-            <h1 className="bot" style={{textAlign:"left",margin:"30px"}}><strong>Welcome {authContext.userName}</strong></h1>
+            <h1 className="bot" style={{textAlign:"left",margin:"40px"}}><strong>Welcome {authContext.userName}</strong></h1>
             {/* <div>
                 List of movies - <Link to="/movies">Click here</Link>
             </div> */}

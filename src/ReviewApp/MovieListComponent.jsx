@@ -82,7 +82,7 @@ function MovieListComponent() {
                             {/* <th>Movie Id</th> */}
                             <th>Movie Name</th>
                             <th>Poster</th>
-                            <th>Released Year</th>
+                            <th>Year</th>
                             <th>Description</th>
                             <th>Director</th>
                             <th>Language</th>

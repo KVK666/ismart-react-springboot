@@ -109,7 +109,7 @@ export default function ReviewComponent() {
 
     return (
         <div >
-            <div className='movie-container'>
+            {/* <div className='movie-container'>
                 <div className="movie-card">
                     <div>
                         <h1><strong>{movie.title}</strong></h1>
@@ -119,7 +119,7 @@ export default function ReviewComponent() {
                     <div>
                         <p>Director: {movie.director}</p>
                         <p>Language: {movie.language}</p>
-                        <p>Rating: <StarRatingComponent
+                        <p><StarRatingComponent
                                         name="rating"
                                         value={averageRating}
                                         starCount={5}
@@ -132,14 +132,53 @@ export default function ReviewComponent() {
 
 
                     </div>
+                </div> */}
+            <div className="movie">
+                <div className="movie__intro">
+                    <img className="movie__backdrop" src={movie.poster} alt={movie.title} />
+                </div>
+                <div className="movie__detail">
+                    <div className="movie__detailLeft">
+                        <div className="movie__posterBox">
+                            <img className="movie__poster" src={movie.poster} alt={movie.title} />
+                        </div>
+                    </div>
+                    <div className="movie__detailRight">
+                        <div className="movie__detailRightTop">
+                            <div className="movie__name">{movie.title}</div>
+                            {/* <div className="movie__tagline">{currentMovieDetail ? currentMovieDetail.tagline : ""}</div> */}
+                            <div className="movie__rating">
+                                {averageRating} <i class="fas fa-star" />
+                                {/* <span className="movie__voteCount">{currentMovieDetail ? "(" + currentMovieDetail.vote_count + ") votes" : ""}</span> */}
+                            </div>
+                            {/* <div className="movie__runtime">{currentMovieDetail ? currentMovieDetail.runtime + " mins" : ""}</div> */}
+                            <div className="movie__releaseDate">{movie ? "Released Year: " + movie.year : ""}</div>
+                            {/* <div className="movie__genres">
+                                {
+                                    currentMovieDetail && currentMovieDetail.genres
+                                        ?
+                                        currentMovieDetail.genres.map(genre => (
+                                            <><span className="movie__genre" id={genre.id}>{genre.name}</span></>
+                                        ))
+                                        :
+                                        ""
+                                }
+                            </div> */}
+                        </div>
+                        <div className="movie__detailRightBottom">
+                            <div className="synopsisText">Synopsis</div>
+                            <div>{movie ? movie.description : ""}</div>
+                        </div>
+
+                    </div>
                 </div>
 
 
 
-                <div class="container">
+                <div class="container" style={{marginTop:"-300px"}}>
                     <form onSubmit={handleSubmit}>
                         <div class="form-group">
-                            <label for="reviewText">Write your review here:</label>
+                            {/* <label for="reviewText">Write your review here:</label> */}
                             <textarea
                                 class="form-control"
                                 id="reviewText"
