@@ -27,3 +27,6 @@ export const postReviewApi
 
 export const retrieveAllReviewsOfMovieApi
     = (id) => apiClient.get(`/movie-service/api/v1/movies/${id}/reviews`)
+
+export const deleteReviewByIdApi
+    = (id) => apiClient.delete(`/movie-service/api/v1/reviews/deleteReview/${id}`)

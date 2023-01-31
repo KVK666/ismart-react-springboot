@@ -6,10 +6,13 @@ import "./MovieReviewApp.css"
 
 import StarRatingComponent from 'react-star-rating-component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { AuthContext, useAuth } from '../security/AuthContext';
 
 
 export default function ReviewComponent() {
+
+    const authContext = useAuth()
 
     const { id } = useParams();
 
@@ -24,6 +27,7 @@ export default function ReviewComponent() {
     const [language, setLanguage] = useState('')
     const [overAllRating, setRating] = useState('')
     const [poster, setPoster] = useState('')
+    const [backPoster, setBackPoster] = useState('')
 
     const [userReview, setUserReview] = useState('')
     const [movieRating, setMovieRating] = useState('')
@@ -42,6 +46,7 @@ export default function ReviewComponent() {
                 setLanguage(response.data.language)
                 setRating(response.data.overAllRating)
                 setPoster(response.data.poster)
+                setBackPoster(response.data.backPoster)
             })
             .catch(error => console.log(error))
 
@@ -81,7 +86,8 @@ export default function ReviewComponent() {
         director: director,
         language: language,
         overAllRating: overAllRating,
-        poster: poster
+        poster: poster,
+        backPoster: backPoster
     }
 
 
@@ -104,38 +110,19 @@ export default function ReviewComponent() {
     const averageRating = Math.round(totalRating / reviews.length);
 
 
+    function handleDelete(reviewId) {
+        deleteReviewByIdApi(reviewId)
+            .then(refreshReviews())
+            .catch(error => console.log(error))
+    }
 
 
 
     return (
         <div >
-            {/* <div className='movie-container'>
-                <div className="movie-card">
-                    <div>
-                        <h1><strong>{movie.title}</strong></h1>
-                        <h5>{movie.year}</h5>
-                        <img src={movie.poster} alt={movie.title} />
-                    </div>
-                    <div>
-                        <p>Director: {movie.director}</p>
-                        <p>Language: {movie.language}</p>
-                        <p><StarRatingComponent
-                                        name="rating"
-                                        value={averageRating}
-                                        starCount={5}
-                                        editing={false}
-                                    /></p>
-                        
-                        
-                        <span><strong>Description</strong></span>
-                        <p>{movie.description}</p>
-
-
-                    </div>
-                </div> */}
             <div className="movie">
                 <div className="movie__intro">
-                    <img className="movie__backdrop" src={movie.poster} alt={movie.title} />
+                    <img className="movie__backdrop" src={movie.backPoster} alt={movie.title} />
                 </div>
                 <div className="movie__detail">
                     <div className="movie__detailLeft">
@@ -175,7 +162,7 @@ export default function ReviewComponent() {
 
 
 
-                <div class="container" style={{marginTop:"-300px"}}>
+                <div class="container" style={{ marginTop: "-300px" }}>
                     <form onSubmit={handleSubmit}>
                         <div class="form-group">
                             {/* <label for="reviewText">Write your review here:</label> */}
@@ -208,25 +195,7 @@ export default function ReviewComponent() {
                 </div>
             </div>
 
-            {/* <ReviewsUnderMovieComponent/> */}
 
-            {/* <div style={{ margin: "25px", textAlign: "left" }}>
-                <h4 style={{ textAlign: "center" }}>Reviews</h4>
-
-                <div style={{ textAlign: "center" }}>
-                    {reviews.length === 0 && <p>Be the first one to review this movie</p>}
-                </div>
-
-                <ol >
-                    {reviews.map(review => (
-                        <li key={review.id} className="card mb-3">
-                            <p><img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt="user" width="50px" height="50px" />{review.userName}</p>
-                            <p>Overall Rating: {review.rating} stars</p>
-                            <p>Review: {review.review}</p>
-                        </li>
-                    ))}
-                </ol>
-            </div> */}
 
             <div style={{ margin: "25px", textAlign: "left" }}>
                 <h4 style={{ textAlign: "center" }}>Reviews</h4>
@@ -235,25 +204,7 @@ export default function ReviewComponent() {
                     {reviews.length === 0 && <p>Be the first one to review this movie</p>}
                 </div>
 
-                {/* <ol>
-                    {reviews.map(review => (
-                        <li key={review.id} className="card mb-3">
-                            <div className="card-header">
-                                <img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt="user" width="50px" height="50px" className="review-user-img" />
-                                <h5 className="review-username">{review.userName}</h5>
-                            </div>
-                            <div className="card-body">
-                                <p className="review-rating"><StarRatingComponent
-                                    name="rating"
-                                    value={review.rating}
-                                    starCount={5}
-                                    editing={false}
-                                /></p>
-                                <p className="review-text">Review: {review.review}</p>
-                            </div>
-                        </li>
-                    ))}
-                </ol> */}
+
 
                 <div class="review-grid">
                     {reviews.map(review => (
@@ -261,6 +212,9 @@ export default function ReviewComponent() {
                             <div class="review-header">
                                 <FontAwesomeIcon icon={faUser} style={{ width: '30px', height: '30px', borderRadius: "50%" }} size="2x" color="#000" />
                                 <h5 class="review-username">{review.userName}</h5>
+                                {authContext.role === "Admin" || review.userName === authContext.userName ? (
+                                    <FontAwesomeIcon icon={faTrash} class="review-delete" onClick={() => handleDelete(review.id)} />
+                                ) : null}
                             </div>
                             <div class="review-body">
                                 <span class="review-rating">
@@ -276,6 +230,7 @@ export default function ReviewComponent() {
                         </div>
                     ))}
                 </div>
+
 
             </div>
 

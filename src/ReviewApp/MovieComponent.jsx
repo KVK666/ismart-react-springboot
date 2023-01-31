@@ -15,6 +15,7 @@ export default function MovieComponent() {
     const [language, setLanguage] = useState('')
     const [overAllRating, setRating] = useState('')
     const [poster,setPoster]=useState('')
+    const [backPoster,setBackPoster]=useState('')
 
     const navigate = useNavigate()
 
@@ -33,6 +34,7 @@ export default function MovieComponent() {
                     setLanguage(response.data.language)
                     setRating(response.data.overAllRating)
                     setPoster(response.data.poster)
+                    setBackPoster(response.data.backPoster)
                 })
                 .catch(error => console.log(error))
         }
@@ -49,7 +51,8 @@ export default function MovieComponent() {
             director: values.director,
             language: values.language,
             overAllRating: values.overAllRating,
-            poster:values.poster
+            poster:values.poster,
+            backPoster:values.backPoster
 
 
         }
@@ -103,7 +106,7 @@ export default function MovieComponent() {
         <div className="container">
             <h1>Enter Movie Details</h1>
             <div>
-                <Formik initialValues={{ title, year, description, director, language, overAllRating,poster}}
+                <Formik initialValues={{ title, year, description, director, language, overAllRating,poster,backPoster}}
                     enableReinitialize={true}
                     onSubmit={onSubmit}
                     validate={validate}
@@ -176,6 +179,10 @@ export default function MovieComponent() {
                                 <fieldset className="form-group">
                                     <label>Poster</label>
                                     <Field className="form-control" name="poster" />
+                                </fieldset>
+                                <fieldset className="form-group">
+                                    <label>Background Poster</label>
+                                    <Field className="form-control" name="backPoster" />
                                 </fieldset>
 
                                 <div>
