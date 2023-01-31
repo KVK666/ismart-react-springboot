@@ -370,10 +370,21 @@ img {
     margin-right: 30px;
 }
 
+.movie__posterBox{
+  
+    position: relative;
+    width: 200px;
+    padding-bottom: 25%; /* adjust this value to desired aspect ratio */
+}
+
 .movie__poster {
-    width:300px;
+    /* width:300px;
+    height:330px; */
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.86) 0px 22px 40px 6px;
+    object-fit: cover;
+    
+
 }
 
 .movie__detailRight {
@@ -425,6 +436,12 @@ img {
     color: #000000;
 }
 
+.write-review-button {
+  margin-top:-235px;
+  
+  float: right;
+  
+}
 
 
 
