@@ -8,6 +8,8 @@ import StarRatingComponent from 'react-star-rating-component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext, useAuth } from '../security/AuthContext';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+
 
 
 export default function ReviewComponent() {
@@ -31,6 +33,7 @@ export default function ReviewComponent() {
 
     const [userReview, setUserReview] = useState('')
     const [movieRating, setMovieRating] = useState('')
+    const [modal, setModal] = useState(false);
 
     useEffect(
         () => retrieveMovies(), [id]
@@ -102,6 +105,9 @@ export default function ReviewComponent() {
             .then(response => {
                 console.log(response)
                 refreshReviews()
+                setUserReview('');
+                setMovieRating('');
+                setModal(false);
             })
             .catch(error => console.log(error));
     }
@@ -133,67 +139,59 @@ export default function ReviewComponent() {
                     <div className="movie__detailRight">
                         <div className="movie__detailRightTop">
                             <div className="movie__name">{movie.title}</div>
-                            {/* <div className="movie__tagline">{currentMovieDetail ? currentMovieDetail.tagline : ""}</div> */}
                             <div className="movie__rating">
                                 {averageRating} <i class="fas fa-star" />
-                                {/* <span className="movie__voteCount">{currentMovieDetail ? "(" + currentMovieDetail.vote_count + ") votes" : ""}</span> */}
                             </div>
-                            {/* <div className="movie__runtime">{currentMovieDetail ? currentMovieDetail.runtime + " mins" : ""}</div> */}
                             <div className="movie__releaseDate">{movie ? "Released Year: " + movie.year : ""}</div>
-                            {/* <div className="movie__genres">
-                                {
-                                    currentMovieDetail && currentMovieDetail.genres
-                                        ?
-                                        currentMovieDetail.genres.map(genre => (
-                                            <><span className="movie__genre" id={genre.id}>{genre.name}</span></>
-                                        ))
-                                        :
-                                        ""
-                                }
-                            </div> */}
                         </div>
                         <div className="movie__detailRightBottom">
-                            <div className="synopsisText">Synopsis</div>
+                            <div className="synopsisText">Description</div>
                             <div>{movie ? movie.description : ""}</div>
                         </div>
 
                     </div>
                 </div>
-
-
-
-                <div class="container" style={{ marginTop: "-300px" }}>
-                    <form onSubmit={handleSubmit}>
-                        <div class="form-group">
-                            {/* <label for="reviewText">Write your review here:</label> */}
-                            <textarea
-                                class="form-control"
-                                id="reviewText"
-                                placeholder="Write your review here"
-                                value={userReview}
-                                onChange={event => setUserReview(event.target.value)}
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label for="ratingSelect">Select a rating:</label>
-                            <select
-                                class="form-control"
-                                id="ratingSelect"
-                                value={movieRating}
-                                onChange={event => setMovieRating(event.target.value)}
-                            >
-                                <option value="">Select a rating</option>
-                                <option value="1">1 star</option>
-                                <option value="2">2 stars</option>
-                                <option value="3">3 stars</option>
-                                <option value="4">4 stars</option>
-                                <option value="5">5 stars</option>
-                            </select>
-                        </div>
-                        <button className="btn btn-primary m-3" type="submit">Submit Review</button>
-                    </form>
-                </div>
+            
+                <Button className='write-review-button' color="primary" onClick={() => setModal(true)}>Write a Review</Button>
+                <Modal isOpen={modal} toggle={() => setModal(false)}>
+                    <ModalHeader toggle={() => setModal(false)}>Write a Review</ModalHeader>
+                    <ModalBody>
+                        <form onSubmit={handleSubmit}>
+                            <div class="form-group">
+                                <textarea
+                                    class="form-control"
+                                    id="reviewText"
+                                    placeholder="Write your review here"
+                                    value={userReview}
+                                    onChange={event => setUserReview(event.target.value)}
+                                />
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="ratingSelect">Select a rating:</label>
+                                <select
+                                    class="form-control"
+                                    id="ratingSelect"
+                                    value={movieRating}
+                                    onChange={event => setMovieRating(event.target.value)}
+                                >
+                                    <option value="">Select a rating</option>
+                                    <option value="1">1 star</option>
+                                    <option value="2">2 stars</option>
+                                    <option value="3">3 stars</option>
+                                    <option value="4">4 stars</option>
+                                    <option value="5">5 stars</option>
+                                </select>
+                            </div>
+                        </form>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={handleSubmit}>Submit Review</Button>{' '}
+                        <Button color="secondary" onClick={() => setModal(false)}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
             </div>
+            
 
 
 
