@@ -140,7 +140,7 @@ export default function ReviewComponent() {
                         <div className="movie__detailRightTop">
                             <div className="movie__name">{movie.title}</div>
                             <div className="movie__rating">
-                                {averageRating} <i class="fas fa-star" />
+                                {averageRating || averageRating === 0 ? averageRating : 0} <i class="fas fa-star" />
                             </div>
                             <div className="movie__releaseDate">{movie ? "Released Year: " + movie.year : ""}</div>
                         </div>
@@ -151,7 +151,7 @@ export default function ReviewComponent() {
 
                     </div>
                 </div>
-            
+
                 <Button className='write-review-button' color="primary" onClick={() => setModal(true)}>Write a Review</Button>
                 <Modal isOpen={modal} toggle={() => setModal(false)}>
                     <ModalHeader toggle={() => setModal(false)}>Write a Review</ModalHeader>
@@ -165,7 +165,7 @@ export default function ReviewComponent() {
                                     value={userReview}
                                     onChange={event => setUserReview(event.target.value)}
                                 />
-                                
+
                             </div>
                             <div class="form-group">
                                 <label for="ratingSelect">Select a rating:</label>
@@ -191,7 +191,7 @@ export default function ReviewComponent() {
                     </ModalFooter>
                 </Modal>
             </div>
-            
+
 
 
 
@@ -214,17 +214,18 @@ export default function ReviewComponent() {
                                     <FontAwesomeIcon icon={faTrash} class="review-delete" onClick={() => handleDelete(review.id)} />
                                 ) : null}
                             </div>
-                            <div class="review-body">
-                                <span class="review-rating">
+                            <div class="review-container">
+                                <div class="star-rating">
                                     <StarRatingComponent
                                         name="rating"
                                         value={review.rating}
                                         starCount={5}
                                         editing={false}
                                     />
-                                </span>
-                                <p class="review-text">Review: {review.review}</p>
+                                </div>
+                                <p class="review-text">{review.review}</p>
                             </div>
+
                         </div>
                     ))}
                 </div>
