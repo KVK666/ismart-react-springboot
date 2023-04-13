@@ -50,7 +50,6 @@ export default function Cards(){
                     <div className="card__title">{movie.title}</div>
                     <div className="card__runtime">
                         {movie.year}
-                        {/* <span className="card__rating">{movie?movie.vote_average:""}<i className="fas fa-star" /></span> */}
                     </div>
                     <div className="card__description">{movie ? movie.description.slice(0,118)+"..." : ""}</div>
                 </div>

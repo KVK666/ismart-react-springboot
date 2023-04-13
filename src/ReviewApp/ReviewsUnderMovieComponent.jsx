@@ -10,6 +10,12 @@ export default function ReviewsUnderMovieComponent(){
     
     const [reviews,setReviews]=useState([])
 
+   
+    
+    
+    
+    
+
 
 
 
@@ -56,3 +62,4 @@ export default function ReviewsUnderMovieComponent(){
 
     )
 }
+

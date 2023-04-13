@@ -57,7 +57,7 @@ export default function MovieComponent() {
 
         }
         console.log(movie)
-        if (id == -1) {
+        if (id === -1) {
             createMovieApi(movie)
                 .then(response => {
                     navigate('/movies')

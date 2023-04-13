@@ -6,7 +6,7 @@ import HeaderComponent from "./HeaderComponent";
 import WelcomeComponent from "./WelcomeComponent";
 import MovieComponent from "./MovieComponent";
 import ReviewComponent from "./ReviewComponent";
-import ReviewsUnderMovieComponent from "./ReviewsUnderMovieComponent";
+
 import MovieListComponent from "./MovieListComponent";
 import LogoutComponent from "./LogoutComponent";
 import ErrorComponent from "./ErrorComponent";

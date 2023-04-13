@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 export default function RegisterComponent() {
     const [userName, setUserName] = useState('');
@@ -33,8 +32,8 @@ export default function RegisterComponent() {
     }
 
     function handleSubmit(event) {
-        event.preventDefault();
-        event.stopPropagation();
+        // event.preventDefault();
+        // event.stopPropagation();
         setUserNameError("");
         setUserFirstNameError("");
         setUserLastNameError("");
@@ -55,9 +54,9 @@ export default function RegisterComponent() {
         if (userPassword.length < 8) {
             setUserPasswordError("Password must be at least 8 characters long");
         }
-        if (!/\d/.test(userPassword) || !/[a-z]/.test(userPassword) || !/[A-Z]/.test(userPassword)) {
-            setUserPasswordError("Password must contain at least one number, one lowercase letter, and one uppercase letter");
-        }
+        // if (!/\d/.test(userPassword) || !/[a-z]/.test(userPassword) || !/[A-Z]/.test(userPassword)) {
+        //     setUserPasswordError("Password must contain at least one number, one lowercase letter, and one uppercase letter");
+        // }
     
         if (!userNameError && !userFirstNameError && !userLastNameError && !userPasswordError) {
             if (userName && userFirstName && userLastName && userPassword){

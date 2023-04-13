@@ -17,7 +17,10 @@ export default function AuthProvider({ children }) {
 
     const [role, setRole] = useState(null)
 
-    const valueToBeShared = { isAuthenticated, setAuthenticated, login, logout, userName, role }
+    const [userFirstName,setUserFirstName]=useState(null)
+    const [userLastName,setUserLastName]=useState(null)
+
+    const valueToBeShared = { isAuthenticated, setAuthenticated, login, logout, userName, role ,userFirstName,userLastName}
 
     async function login(userName, userPassword) {
         try{
@@ -30,6 +33,8 @@ export default function AuthProvider({ children }) {
                     setAuthenticated(true)
                     setUserName(userName)
                     setRole(response.data.user.role[0].roleName)
+                    setUserFirstName(response.data.user.userFirstName)
+                    setUserLastName(response.data.user.userLastName)
                     return true
                 } else {
                     throw new Error("Invalid username or password")

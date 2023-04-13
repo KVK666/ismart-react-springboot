@@ -4,6 +4,7 @@ import { useAuth } from "../security/AuthContext"
 import { deleteMovieByIdApi, retrieveAllMoviesApi } from "../api/MovieReviewApiService"
 
 import "./MovieReviewApp.css"
+import ScrollToTop from "react-scroll-to-top"
 
 function MovieListComponent() {
     const [movies, setMovies] = useState([])
@@ -130,6 +131,7 @@ function MovieListComponent() {
                     </tbody>
                 </table>
             </div>
+            <ScrollToTop color="black" smooth/>
         </div>
     )
 }

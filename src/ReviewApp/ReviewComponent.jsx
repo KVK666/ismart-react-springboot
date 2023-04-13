@@ -7,7 +7,7 @@ import "./MovieReviewApp.css"
 import StarRatingComponent from 'react-star-rating-component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
-import { AuthContext, useAuth } from '../security/AuthContext';
+import { useAuth } from '../security/AuthContext';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
@@ -145,7 +145,7 @@ export default function ReviewComponent() {
                             <div className="movie__releaseDate">{movie ? "Released Year: " + movie.year : ""}</div>
                         </div>
                         <div className="movie__detailRightBottom">
-                            <div className="synopsisText">Description</div>
+                            <div className="synopsisText">Overview</div>
                             <div>{movie ? movie.description : ""}</div>
                         </div>
 
